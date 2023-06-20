@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <script src="./script.js" async></script>
+    <script src="./script.js" async=""></script>
     <link rel="stylesheet" href="./styles.css">
 
     <title>Convert Money</title>
@@ -25,9 +25,9 @@
         </label>
 
         <label> Converter <b>para</b>
-            <select>
-                <option>US$ Dólar Americano</option>
-                <option>€ Euro</option>
+            <select class="currency-selector">
+                <option value="Dolar">US$ Dólar Americano</option>
+                <option value="Euro">€ Euro</option>
             </select>
         </label>
 
@@ -48,13 +48,11 @@
             <img class="arrow-img" src="./assets/arrow.png" alt="seta">
 
             <div class="currency-box">
-                <img src="./assets/dolar.png" alt="logo-moeda-convertida">
-                <p class="currency" >Dolar</p>
+                <img class="currency-img" src="./assets/dolar.png" alt="logo-moeda-convertida">
+                <p class="currency" id="currency-name">Dólar Americano</p>
                 <p class="currency-value">US$ 0,00</p>
             </div>
         </section>
-
-
     </main>
 </body>
 
