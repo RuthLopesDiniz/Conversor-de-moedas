@@ -6,34 +6,49 @@
     outline: none;
 }
 
-.back {
+/*.back {
     z-index: -1;
     opacity: 0.5;
     background-repeat: no-repeat;
     width: 100vw;
     height: 100vh;
     position: absolute;
+}*/
+
+body {
+    background-image: url(./assets/dollar_euroBackground.jpg);
+    
+    position: absolute;
+    z-index: -1;
+    /* background-repeat: round; */
+    width: 100vw;
+    height: 100vh;
+    background-size: cover;
 }
 
+
 main {
-    display: inline-block;
+    display: block;
     width: 375px;
-    background: #baa5d5;
+    
+    background: #ffffffb4;
+    
     border-radius: 20px;
-    margin: 15px 500px 15px;
-    padding: 15px 24px 23px;
+    margin: 15px auto 15px;
+    padding: 10px 24px 20px;
     /* 1-cima 2-lados 3-baixo*/
 }
 
 label {
-    color: #423f3f;
+    color: #2a2828;
     font-weight: 400;
     font-size: 14px;
 }
 
-select, input {
+select,
+input {
     background: #FFFFFF;
-    border: 1px solid #a39393;
+    border: 1px solid #837979;
     border-radius: 4px;
     height: 48px;
     width: 100%;
@@ -44,12 +59,13 @@ select, input {
     font-size: 16px;
     color: #555555;
 }
-input{
+
+input {
     width: 95%;
 }
 
 button {
-    background: purple;
+    background: rgba(126, 6, 126, 0.896);
     border-radius: 5px;
     width: 100%;
     border: none;
@@ -60,12 +76,13 @@ button {
     cursor: pointer;
 }
 
-.currency{
-    color: #777777;
+.currency {
+    color: #3f3f3f;
     font-size: 14px;
 }
 
-.currency-value, .currency-value-to-convert{
+.currency-value,
+.currency-value-to-convert {
     color: #555555;
     font-weight: 700;
     font-size: 20px;
@@ -90,13 +107,40 @@ section {
     align-items: center;
 }
 
-.arrow-img{
+.arrow-img {
     margin: 15px 0;
 }
 
-.currency-box{
+.currency-box {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 4px;
 }
+
+.currency-img,
+.logo-moeda-a-converter {
+    -webkit-filter: drop-shadow(0px 4px 4px #000000 (0 0 0 / 25%));
+    filter: drop-shadow(0px 4px 4px #000000 (0 0 0 / 25%));
+}
+
+@media screen and (max-width:900px) {
+
+    
+    main {
+        display: block;
+        flex-direction: row;
+        width: 80vw;
+        height: 100vh;
+        margin: 5px auto 5px;
+    }
+
+    section {
+        display: flex;
+        width: 80vw;
+        height: 48vh;
+        align-items: center;
+    }
+
+}
+
