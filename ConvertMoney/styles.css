@@ -6,15 +6,6 @@
     outline: none;
 }
 
-/*.back {
-    z-index: -1;
-    opacity: 0.5;
-    background-repeat: no-repeat;
-    width: 100vw;
-    height: 100vh;
-    position: absolute;
-}*/
-
 body {
     background-image: url(./assets/dollar_euroBackground.jpg);
     
@@ -29,11 +20,9 @@ body {
 
 main {
     display: block;
-    width: 375px;
-    
+    width: 375px;   
     background: #ffffffb4;
-    
-    border-radius: 20px;
+    border-radius: 30px;
     margin: 15px auto 15px;
     padding: 10px 24px 20px;
     /* 1-cima 2-lados 3-baixo*/
@@ -65,10 +54,10 @@ input {
 }
 
 button {
-    background: rgba(126, 6, 126, 0.896);
+    background: rgba(2, 126, 2, 0.766);
     border-radius: 5px;
     width: 100%;
-    border: none;
+    border: rgba(2, 126, 2, 0.766);
     height: 48px;
     color: #FFFFFF;
     font-weight: 700;
@@ -131,7 +120,7 @@ section {
         display: block;
         flex-direction: row;
         width: 80vw;
-        height: 100vh;
+        height: 100%;
         margin: 5px auto 5px;
     }
 
