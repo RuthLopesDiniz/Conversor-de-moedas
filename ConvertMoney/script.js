@@ -313,6 +313,12 @@ function changeName() {
     }
     convertValues()
 }
+
+function verificarVazio(){
+    const inputCurrencyValue = document.querySelector(".input-currency").value
+if(inputCurrencyValue.value <= 0)
+    console.log("digite algo para continuar")
+}
 convertButton.addEventListener("click", convertValues)
 currencySelectorFirst.addEventListener("change", changeNameFirst)
 currencySelector.addEventListener("change", changeName)
