@@ -1,18 +1,32 @@
-const convertButton = document.querySelector(".convert-Button")
-const currencySelector = document.querySelector(".currency-selector")
-const currencySelectorFirst = document.querySelector(".currency-selector-first")
+const convertButton = document.querySelector (".convert-Button");
+const currencySelector = document.querySelector(".currency-selector");
+const currencySelectorFirst = document.querySelector(".currency-selector-first");
 
-function convertValues() {
-    const inputCurrencyValue = document.querySelector(".input-currency").value
-    const currencyValueToConvert = document.querySelector(".currency-value-to-convert")//valor em real
-    const currencyValueConverted = document.querySelector(".currency-value")//outras moedas
+    const convertValues = async () => {
+    const inputCurrencyValue = document.querySelector(".input-currency").value;
+    const currencyValueToConvert = document.querySelector(".currency-value-to-convert");//valor em real
+    const currencyValueConverted = document.querySelector(".currency-value");//outras moedas
 
-    const dolarToday = 5.00
-    const euroToday = 6.00
-    const libraToday = 6.08
-    const bitcoinToday = 142846.54
+    const data = await fetch('https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,BTC-BRL').then(response => response.json())
+    /*arrow function. Aqui eu crio uma varíável para gardar as informações acessadas pelo fetch, ele vai acessar a url, pegar os dados, colocar a
+    resposta no formato json e armazenar na variável */
+
+    console.log(data)
+    /*javaScript funciona  de forma linear, quando iniciamos uma aplicação ele vai seguindo de cima para baixo para funcionar, execulta linha após
+     linha. Porém em caso de api que usa informação externa.
+     
+     Promises: simplificando, estamos pedindo para o java script esperar enquanto ele busca infromações em outro lugar, como um servidor ou api.
+     Async await: estou avisando para o javaScript que vai ter uma requisição assincrona e que deverá esperar o retorno dos dados para continuar a
+     execução
+     Async await só funciona dentro de funções, toda vez que for usar um código assincrono tem que ser dentro de uma função. Precisa avisar ao javaScript
+     que é uma função assincrona, fazemos isso colocando async() na decalaração da função, para ele saber onde esperar colocamos await.
+     */
+     const dolarToday = data.USDBRL.high
+     const euroToday = data.EURBRL.high
+     const bitcoinToday = data.BTCBRL.high
 
     if(currencySelectorFirst.value == "R"){
+        
         currencyValueToConvert.innerHTML = new Intl.NumberFormat("pt-BR", {
             style: "currency",
             currency: "BRL"
@@ -22,7 +36,7 @@ function convertValues() {
         currencyValueConverted.innerHTML = new Intl.NumberFormat("en-US", {
             style: "currency",
             currency: "USD"
-        }).format(inputCurrencyValue / dolarToday)
+        }).format(inputCurrencyValue / dolarToday )
     }
     if (currencySelector.value == "Euro") {
         currencyValueConverted.innerHTML = new Intl.NumberFormat("de-DE", {
@@ -30,12 +44,7 @@ function convertValues() {
             currency: "EUR"
         }).format(inputCurrencyValue / euroToday)
     }
-    if (currencySelector.value == "Libra") {
-        currencyValueConverted.innerHTML = new Intl.NumberFormat("de-GB", {
-            style: "currency",
-            currency: "GBP"
-        }).format(inputCurrencyValue / libraToday)
-    }
+    
     if (currencySelector.value == "Bitcoin") {
         currencyValueConverted.innerHTML = new Intl.NumberFormat("en-US", {
             style: "currency",
@@ -73,16 +82,7 @@ function convertValues() {
             currency: "EUR"
         }).format(inputCurrencyValue)
     }
-    if(currencySelector.value == "Libra" && currencySelectorFirst.value == "L"){
-        currencyValueConverted.innerHTML = new Intl.NumberFormat("de-GB", {
-            style: "currency",
-            currency: "GBP"
-        }).format(inputCurrencyValue)
-        currencyValueToConvert.innerHTML = new Intl.NumberFormat("de-GB", {
-            style: "currency",
-            currency: "GBP"
-        }).format(inputCurrencyValue)
-    }
+    
     if(currencySelector.value == "Bitcoin" && currencySelectorFirst.value == "B"){
         currencyValueConverted.innerHTML = new Intl.NumberFormat("de-GB", {
             style: "currency",
@@ -103,18 +103,9 @@ function convertValues() {
         currencyValueConverted.innerHTML = new Intl.NumberFormat("de-DE", {
             style: "currency",
             currency: "EUR"
-        }).format(inputCurrencyValue * 0.82) 
+        }).format(inputCurrencyValue * dolarToday/euroToday) 
     }
-    else if (currencySelectorFirst.value == "D" && currencySelector.value =="Libra") {
-        currencyValueToConvert.innerHTML = new Intl.NumberFormat("en-US", {
-            style: "currency",
-            currency: "USD"
-        }).format(inputCurrencyValue)
-        currencyValueConverted.innerHTML = new Intl.NumberFormat("de-GB", {
-            style: "currency",
-            currency: "GBP"
-        }).format(inputCurrencyValue*0.78)
-    }
+    
     else if (currencySelectorFirst.value == "D" && currencySelector.value =="Bitcoin") {
         currencyValueToConvert.innerHTML = new Intl.NumberFormat("en-US", {
             style: "currency",
@@ -123,8 +114,18 @@ function convertValues() {
             currencyValueConverted.innerHTML = new Intl.NumberFormat("en-US", {
                 style: "currency",
                 currency: "BTC"
-            }).format(inputCurrencyValue*0.0000327574)
+            }).format(inputCurrencyValue*dolarToday/bitcoinToday)
         }
+         if(currencySelectorFirst.value == "D" && currencySelector.value == "Real"){
+        currencyValueToConvert.innerHTML = new Intl.NumberFormat("en-US", {
+            style: "currency",
+            currency: "USD"
+        }).format(inputCurrencyValue)
+        currencyValueConverted.innerHTML = new Intl.NumberFormat("pt-BR", {
+            style: "currency",
+            currency: "BRL"
+        }).format(dolarToday*inputCurrencyValue)  
+    }
     
 
     /*============= Do euro para outras moedas */
@@ -136,18 +137,9 @@ function convertValues() {
         currencyValueConverted.innerHTML = new Intl.NumberFormat("en-US", {
             style: "currency",
             currency: "USD"
-        }).format(inputCurrencyValue*1.08)  
+        }).format(inputCurrencyValue*euroToday/dolarToday)  
     }
-    else if(currencySelectorFirst.value == "E" && currencySelector.value == "Libra"){
-        currencyValueToConvert.innerHTML = new Intl.NumberFormat("de-DE", {
-            style: "currency",
-            currency: "EUR"
-        }).format(inputCurrencyValue)
-        currencyValueConverted.innerHTML = new Intl.NumberFormat("de-GB", {
-            style: "currency",
-            currency: "GBP"
-        }).format(inputCurrencyValue*0.85)  
-    }
+    
     else if(currencySelectorFirst.value == "E" && currencySelector.value == "Bitcoin"){
         currencyValueToConvert.innerHTML = new Intl.NumberFormat("de-DE", {
             style: "currency",
@@ -156,7 +148,7 @@ function convertValues() {
         currencyValueConverted.innerHTML = new Intl.NumberFormat("en-US", {
             style: "currency",
             currency: "BTC"
-        }).format(inputCurrencyValue*0.0000356850)  
+        }).format(inputCurrencyValue*euroToday/bitcoinToday)  
     }
     else if(currencySelectorFirst.value == "E" && currencySelector.value == "Real"){
         currencyValueToConvert.innerHTML = new Intl.NumberFormat("de-DE", {
@@ -166,50 +158,10 @@ function convertValues() {
         currencyValueConverted.innerHTML = new Intl.NumberFormat("pt-BR", {
             style: "currency",
             currency: "BRL"
-        }).format(inputCurrencyValue*5.21)  
+        }).format(inputCurrencyValue*euroToday)  
     }
 
-    /*============= Do libra para outras moedas */
-    if(currencySelectorFirst.value == "L" && currencySelector.value == "Real"){
-        currencyValueToConvert.innerHTML = new Intl.NumberFormat("de-GB", {
-            style: "currency",
-            currency: "GBP"
-        }).format(inputCurrencyValue)
-        currencyValueConverted.innerHTML = new Intl.NumberFormat("pt-BR", {
-            style: "currency",
-            currency: "BRL"
-        }).format(inputCurrencyValue*6.08033)  
-    }
-    else if(currencySelectorFirst.value == "L" && currencySelector.value == "Dolar"){
-        currencyValueToConvert.innerHTML = new Intl.NumberFormat("de-GB", {
-            style: "currency",
-            currency: "GBP"
-        }).format(inputCurrencyValue)
-        currencyValueConverted.innerHTML = new Intl.NumberFormat("en-US", {
-            style: "currency",
-            currency: "USD"
-        }).format(inputCurrencyValue*1.27)  
-    }
-    else if(currencySelectorFirst.value == "L" && currencySelector.value == "Euro"){
-        currencyValueToConvert.innerHTML = new Intl.NumberFormat("de-GB", {
-            style: "currency",
-            currency: "GBP"
-        }).format(inputCurrencyValue)
-        currencyValueConverted.innerHTML = new Intl.NumberFormat("de-DE", {
-            style: "currency",
-            currency: "EUR"
-        }).format(inputCurrencyValue*1.16)  
-    }
-    else if(currencySelectorFirst.value == "L" && currencySelector.value == "Bitcoin"){
-        currencyValueToConvert.innerHTML = new Intl.NumberFormat("de-GB", {
-            style: "currency",
-            currency: "GBP"
-        }).format(inputCurrencyValue)
-        currencyValueConverted.innerHTML = new Intl.NumberFormat("de-DE", {
-            style: "currency",
-            currency: "BTC"
-        }).format(inputCurrencyValue*0.000041701702752)  
-    }
+
 
     /*============= Do bitcoin para outras moedas */
     if(currencySelectorFirst.value == "B" && currencySelector.value == "Real"){
@@ -220,7 +172,7 @@ function convertValues() {
         currencyValueConverted.innerHTML = new Intl.NumberFormat("pt-BR", {
             style: "currency",
             currency: "BRL"
-        }).format(inputCurrencyValue*0.00000686187)  
+        }).format(inputCurrencyValue*bitcoinToday)  
     }
     else if(currencySelectorFirst.value == "B" && currencySelector.value == "Dolar"){
         currencyValueToConvert.innerHTML = new Intl.NumberFormat("en-US", {
@@ -230,7 +182,7 @@ function convertValues() {
         currencyValueConverted.innerHTML = new Intl.NumberFormat("en-US", {
             style: "currency",
             currency: "USD"
-        }).format(inputCurrencyValue*30435,84)  
+        }).format(inputCurrencyValue*bitcoinToday/dolarToday)  
     }
     else if(currencySelectorFirst.value == "B" && currencySelector.value == "Euro"){
         currencyValueToConvert.innerHTML = new Intl.NumberFormat("en-US", {
@@ -240,18 +192,9 @@ function convertValues() {
         currencyValueConverted.innerHTML = new Intl.NumberFormat("de-DE", {
             style: "currency",
             currency: "EUR"
-        }).format(inputCurrencyValue*27796.53)  
+        }).format(inputCurrencyValue*bitcoinToday/euroToday)  
     }
-    else if(currencySelectorFirst.value == "B" && currencySelector.value == "Libra"){
-        currencyValueToConvert.innerHTML = new Intl.NumberFormat("en-US", {
-            style: "currency",
-            currency: "BTC"
-        }).format(inputCurrencyValue)
-        currencyValueConverted.innerHTML = new Intl.NumberFormat("de-GB", {
-            style: "currency",
-            currency: "GBP"
-        }).format(inputCurrencyValue*23932.58)  
-    }
+    
 }
 
 function changeNameFirst() {
@@ -311,14 +254,10 @@ function changeName() {
         changeNameCurrency.innerText = "₿ Bitcoin"
         currencyImg.src = './assets/bitcoin 1.png'
     }
+    
     convertValues()
 }
 
-function verificarVazio(){
-    const inputCurrencyValue = document.querySelector(".input-currency").value
-if(inputCurrencyValue.value <= 0)
-    console.log("digite algo para continuar")
-}
 convertButton.addEventListener("click", convertValues)
 currencySelectorFirst.addEventListener("change", changeNameFirst)
 currencySelector.addEventListener("change", changeName)
