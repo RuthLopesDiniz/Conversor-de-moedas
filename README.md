@@ -8,4 +8,3 @@
   <h4>Tela para dispositivo móvel::<h4>
 <img src="https://github.com/RuthLopesDiniz/Conversor-de-moedas/blob/main/ConvertMoney/assets/convertMoney2.PNG?raw=true">
   <br>
-<a href="https://moedasconvert.netlify.app/">Clique aqui para ver projeto publicado!</a>
